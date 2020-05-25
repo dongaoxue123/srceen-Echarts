@@ -9,17 +9,17 @@ import HelloWorldcf from '@/components/HelloWorldcf'
 import videoMonitoring from '@/pages/videoMonitoring'
 import pictureMonitoring from '@/pages/pictureMonitoring'
 import Em from '@/pages/emptyPage'
+import pannumber from '@/pages/pannumber'
+import picpan from '@/pages/picpan'
+import managesales from '@/pages/managesales'
 Vue.use(Router)
-
 export default new Router({
   routes: [
     {
       path: '/',
       name: 'HelloWorld',
       component: HelloWorld
-    },   
-    
-    {
+    },{
       path: '/cf',
       name: 'HelloWorldcf',
       component: HelloWorldcf
@@ -27,30 +27,42 @@ export default new Router({
       path: '/video',
       name: 'Video',
       component: Video
-    },    {
+    },{
       path: '/text',
       name: 'Text',
       component: Text
-    },    {
+    },{
       path: '/text1',
       name: 'Text1',
       component: Text1
-    },    {
+    },{
       path: '/login',
       name: 'login',
       component: login
-    }, {
+    },{
       path: '/videoMonitoring',
       name: 'videoMonitoring',
       component: videoMonitoring
-    },    {
+    },{
       path: '/pictureMonitoring',
       name: 'pictureMonitoring',
       component: pictureMonitoring
-    },    {
+    },{
       path: '/emptyPage',
       name: 'Em',
       component: Em
+    },{
+      path: '/pannumber',
+      name: 'pannumber',
+      component: pannumber
+    },{
+      path: '/picpan',
+      name: 'picpan',
+      component: picpan
+    },{
+      path: '/managesales',
+      name: 'managesales',
+      component: managesales
     }
   ]
 })

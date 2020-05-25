@@ -1158,7 +1158,6 @@
           stashInitialSize: 128,
           enableWorker: true
         });
-
       flvPlayer.attachMediaElement(player);
       flvPlayer.load();
       flvPlayer.play();

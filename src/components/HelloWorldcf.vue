@@ -4,7 +4,7 @@
     <div style="display: flex;justify-content: space-between;align-items: center;padding-top: 10px;padding-top: 12px;">
         <!-- <dv-decoration-11 @click="tohome" style="width:546px;height:106px;color:#237df5;font-size:40px;font-weight:700;letter-spacing:8px"> -->
           <dv-decoration-8 style="width:650px;height:50px;" />
-          <div @contextmenu.prevent="showright" style="width:546px;color:#237df5;font-size:40px;font-weight:700;letter-spacing:8px">
+          <div  @click="alertmune" style="width:546px;color:#237df5;font-size:40px;font-weight:700;letter-spacing:8px">
             CF数据采集监控平台
           </div>
           <!-- <div v-if="showrightt" style="background: #261fad;">退出</div> -->
@@ -15,6 +15,18 @@
     <div style="display: flex;justify-content: center;align-items: center;">
       <img src="../pages/img/微信截图_20200326141835.png" alt="">
     </div>
+    <div style="width: 1920px;height: 1080px;background: #000;opacity: 0.8;position: absolute;top: 0;left: 0;z-index: 100;" v-if="ispop">
+    <div  style="width: 360px;height: 225px;background: #3e568f;opacity: 0.8;position: absolute;left: 750px;top: 250px;z-index: 700;border-radius: 10px;">
+      <div style="width: 340px;height: 40px;background: #1378ed;z-index: 250;opacity: 1;border-radius: 10px;display: flex;justify-content: space-between;align-items: center;padding-left: 10px;padding-right: 10px;">
+      <div style="color: #fff;font-size: 14px;">平台切换</div>
+      <i @click="closePop" style="color: #fff;font-size: 18px;" class="el-icon-close"></i>
+      </div>
+      <button @click="toCf"  style="width: 240px;height: 35px;margin-top: 20px;background: #09276e;border: 0;border-radius: 5px;color: #fff;">CF数据采集监控平台</button>
+      <button @click="toDIS" plain style="width:240px;height: 35px;margin:0;margin-top: 20px;background: #09276e;border: 0;border-radius: 5px;color: #fff;">守望者监控平台</button>
+      <button @click="tomp4" style="width: 240px;height: 35px;margin:0;margin-top: 20px;background: #09276e;border: 0;border-radius: 5px;color: #fff;">猪场生产管理监控平台</button>
+      <!-- <button style="width: 200px;height: 50px;background:#4f4850 ;border: 2px solid #303136;margin-top: 100px;border-radius: 10px;color: #aba9b0;font-size: 18px;">CF数据监控平台</button> -->
+    </div>
+  </div>
     <div style="display: flex;justify-content: space-between;align-items: center;margin-top:10px;margin-left:150px">
     <div style="display: flex;justify-content: flex-start;align-items: center;">
       <div style="color:#03acff;font-size:30px;font-weight:600;">猪场</div>
@@ -25,38 +37,43 @@
       <div @click="tt" style="color:#0392ca;margin-left:15px;font-size:24px;font-weight:600;letter-spacing:3px">{{gettime}}</div>
     </div>
     <dv-scroll-board :config="configrunlist" @click="clicktable" style="width: 420px;height: 180px;" />
-      <el-dialog
+      <!-- <el-dialog
         title=""
         :visible.sync="dialogVisible"
         style="font-weight: 600;font-size: 24px;color: #fff;"
         width="30%"
         show-close = false
-        top = 35vh>
-      <div style="background: #261fad;">
-      <div style="padding: 10px;display: flex;justify-content: space-between;align-items: center; font-size: 16px;font-weight: 600;background: #161273;color: #acdcf7;">
+        top = 35vh> -->
+        <div v-if="dialogVisible" style="width: 1920px;height: 1080px;background: #000;opacity: 0.8;position: absolute;top: 0;left: 0;z-index: 100;">
+        <div style="font-weight: 600;font-size: 24px;color: #fff;width: 550px;background: #0b0b45;position: absolute;top:250px;left: 700px;padding-bottom: 30px;z-index: 200;opacity: 0.9;">
+          <div style="width: 550px;height: 50px;background: #195bb6;border-radius: 10px;color: #fff;font-size: 18px;font-weight: 500;line-height: 50px;">信息</div>
+      <div style="background: #0b0b45;">
+      <div style="padding: 20px;display: flex;justify-content: space-between;align-items: center; font-size: 16px;font-weight: 600;color: #fff;margin-top: 10px;">
         <div>设备信息：{{acquisitionDeviceName}}</div><div>采集设备:{{errorMsg}}</div></div>
-      <div style="padding: 10px;display: flex;justify-content: flex-start;align-items: center;font-size: 16px;font-weight: 600;background: #161273;color: #acdcf7;">
+      <div style="padding: 20px;display: flex;justify-content: flex-start;align-items: center;font-size: 16px;font-weight: 600;color: #fff;">
         <div>信息来源: &nbsp; </div><div>{{informationSources}}</div></div>
-      <div style="padding: 10px;display: flex;justify-content: flex-start;align-items: center;font-size: 16px;font-weight: 600;background: #161273;color: #acdcf7;">
+      <div style="padding: 20px;display: flex;justify-content: flex-start;align-items: center;font-size: 16px;font-weight: 600;color: #fff;">
         <div>问题栋舍: &nbsp; </div><div>{{houseName}}</div></div>
       <!-- <div style="padding: 10px;display: flex;justify-content: space-between;align-items: center;"><div>联络人</div><div>xxx123456678</div></div> -->
     </div>
-      <span slot="footer" class="dialog-footer">
-    <el-button @click="dialogVisible = false">关闭</el-button>
+      <!-- <span slot="footer" class="dialog-footer"> -->
+    <el-button style="background: #15398d;color: #fff;border: 0;" @click="dialogVisible = false">关闭</el-button>
     <!-- <el-button type="primary" @click="dialogVisible = false">确 定</el-button> -->
-  </span>
-</el-dialog>
+  <!-- </span> -->
+</div>
+</div>
+<!-- </el-dialog> -->
    </div>
-   <div style="display: flex;justify-content: flex-start;align-items: center;margin-top:-20px;margin-left:150px">
-     <div style="color:#03acff;font-size:24px;font-weight:600;">数据采集概括：</div>
-   </div>
-   <div style="display: flex;justify-content:space-between;align-items: center;flex-wrap:nowarp;padding-left:150px;padding-right:150px;padding-top:10px">
+    <div style="display: flex;justify-content: flex-start;align-items: center;margin-top:-20px;margin-left:150px">
+      <div style="color:#03acff;font-size:24px;font-weight:600;">数据采集概括：</div>
+    </div>
+    <div style="display: flex;justify-content:space-between;align-items: center;flex-wrap:nowarp;padding-left:150px;padding-right:150px;padding-top:10px">
       <dv-charts style="width:200px;height:200px;" :option="optionround1" />
       <dv-charts style="width:200px;height:200px;" :option="optionround2" />
       <dv-charts style="width:200px;height:200px;" :option="optionround3" />
       <dv-charts style="width:200px;height:200px;" :option="optionround4" />
       <dv-charts style="width:200px;height:200px;" :option="optionround5" />
-   </div>
+    </div>
     <div style="display: flex;justify-content:space-between;align-items: center;padding-left:150px;padding-right:150px;padding-top:9px;">
       <div style="color:#2b7fef;font-size:24px;margin-left:18px;">采集设备在线</div>
       <div style="color:#2b7fef;font-size:24px;margin-left:22px">母猪采集量(GB)</div>
@@ -75,7 +92,7 @@
     <div  style="width:600px;height:400px;border: 1px solid #235fa7;margin-right: 10px;">
       <div style="display: flex;justify-content:space-between;align-items: center;padding-left:14px;padding-right:14px;">
         <span style="color:#00afff;margin:0px;margin-top:8px;;font-size:24px">采集场景监控</span>
-        <div @click="tovideo" style="color:#00afff;margin:0px;margin-top:8px;;font-size:24px">更多</div>
+        <div @click="tovideo" style="color:#00afff;margin:0px;margin-top:8px;font-size:24px">更多</div>
       </div>
       <video
         id="myPlayer"
@@ -90,7 +107,7 @@
        <div  style="width:600px;height:400px;border: 1px solid #235fa7;">
         <div style="display: flex;justify-content:space-between;align-items: center;padding-left:14px;padding-right:14px;">
           <span style="color:#00afff;margin:0px;margin-top:8px;;font-size:24px">采集图像监控</span>
-          <div @click="totext" style="color:#00afff;margin:0px;margin-top:8px;;font-size:24px">更多</div>
+          <div @click="totext" style="color:#00afff;margin:0px;margin-top:8px;font-size:24px">更多</div>
         </div>
         <div v-if="isimgde" style="width:580px;height:350px;background: #000;margin-left: 10px;margin: 0 auto;color: #fff;">暂无图片</div>
         <img v-if="!isimgde" style="width:580px;height:350px;background: #101239;" :src="imgone">
@@ -161,21 +178,23 @@ export default {
       textfirstlist:{},
       nulltestlist:[],
       errorMsg:'',
-      imgone:'./background.png',
+      imgone:'http://112.103.160.4:33333/mongodb_pic//b827eb0cb148//mask//0.jpg',
       acquisitionDeviceCode:'',
-      isimgde:false,
-      showrightt:false
+      isimgde:true,
+      showrightt:false,
+      ispop:false,
     }
   },
   updated() {
-   if(this.rtmp_url!=""){
-    //如果在mounted中声明，直播地址还未取到，导致视频不显示。所以放在了这里
-    this.player = new EZUIPlayer('myPlayer')
-   }
+    if(this.rtmp_url!=""){
+      //如果在mounted中声明，直播地址还未取到，导致视频不显示。所以放在了这里
+      this.player = new EZUIPlayer('myPlayer')
+    }
   },
   mounted() {
-    // this.imgone=''
-    this.isimgde = true
+    // this.imgone="http://image.baidu.com/search/detail?ct=503316480&z=0&ipn=d&word=%E7%BA%AF%E8%89%B2%E8%83%8C%E6%99%AF%E5%9B%BE%C2%B7&step_word=&hs=2&pn=83&spn=0&di=43120&pi=0&rn=1&tn=baiduimagedetail&is=0%2C0&istype=0&ie=utf-8&oe=utf-8&in=&cl=2&lm=-1&st=undefined&cs=828550529%2C3285942454&os=3001369037%2C4019797111&simid=0%2C0&adpicid=0&lpn=0&ln=744&fr=&fmq=1590029380982_R&fm=&ic=undefined&s=undefined&hd=undefined&latest=undefined&copyright=undefined&se=&sme=&tab=0&width=undefined&height=undefined&face=undefined&ist=&jit=&cg=&bdtype=0&oriquery=&objurl=http%3A%2F%2Fwww.1-eye.cn%2Fimg.php%3Fimg.jf258.com%2Fi%2F3a2689828134x3186675547b27.jpg&fromurl=ippr_z2C%24qAzdH3FAzdH3Fooo_z%26e3B8-jyj_z%26e3BvgAzdH3F%25El%25BB%25l8%25Eb%25bl%25Bd%25E0%25lA%25b9%25Ec%25lB%25BE%25E0%25bl%25b0%25E0%25BA%25AF%25Eb%25bl%25Bd_z%26e3Bip4s&gsm=54&rpstart=0&rpnum=0&islist=&querylist=&force=undefined"
+    // this.isimgde = true
+    // this.isimgde = true
     // console.log(this.imgone)
     // console.log(localStorage.authToken)
     if (!localStorage.authToken) {
@@ -183,8 +202,8 @@ export default {
     }
     try{
       window.setInterval(() => {
-      setTimeout(  this.getTime() , 0)
-    }, 1000)
+        this.getTime() 
+      }, 1000)
     } catch(err) {
       console.log('时间')
     }
@@ -227,7 +246,7 @@ export default {
     //     this.imgone = 'http://112.103.160.4:33333/'+ res.data.images[0].mask_image_path
     //   }
     // })
-    doGet(`${API_HOST}/api/system/farm/getListPage?page=0&limit=0`,{authToken:localStorage.authToken,groupId:localStorage.groupId}).then(res => {
+    doGet(`${API_HOST}/api/system/farm/getListPage?page=0&limit=0`,{authToken:localStorage.authToken,groupId:localStorage.groupId,id:'54'}).then(res => {
       if (res) {
         // console.log(res)
         if (res.data.errcode == 10005) {
@@ -237,26 +256,26 @@ export default {
         this.select = res.data.dataSource.list[0].id
         localStorage['farmId'] = res.data.dataSource.list[0].id
         doGet(`${API_HOST}/api/pig/dataAcquisitionDevice/getDataAcquisitionFarmOnHouseCount`,{farmId:this.select,authToken:localStorage.authToken}).then(res => {
-        if (res) {
-          // console.log(res)
-          res.data.dataSource.list.forEach(item => {
-            // console.log(item)
-            item.deviceCount = Number(item.deviceCount)
-            this.nulltestlist.push({value:item.deviceCount,name:item.houseName})
-            // console.log(this.nulltestlist)
-          })
-          this.textfirstlist = {
-            data:this.nulltestlist,
-            rowNum:4
+          if (res) {
+            // console.log(res)
+            res.data.dataSource.list.forEach(item => {
+              // console.log(item)
+              item.deviceCount = Number(item.deviceCount)
+              this.nulltestlist.push({value:item.deviceCount,name:item.houseName})
+              // console.log(this.nulltestlist)
+            })
+            this.textfirstlist = {
+              data:this.nulltestlist,
+              rowNum:4
+            }
           }
-        }
-      })
+        })
       doGet(`${API_HOST}/api/system/house/getHouseListPage?pageNum=0&pageSize=0`,{farmId:this.select,authToken:localStorage.authToken}).then(res => {
         if (res) {
           // console.log(res)
           this.listsigid = res.data.dataSource.list[0].id
           // console.log(this.caplist)
-          doGet(`${API_HOST}/api/system/device/getCFMonitor`,{houseId:this.listsigid,authToken:localStorage.authToken}).then(res => {
+          doGet(`${API_HOST}/api/system/device/getCFMonitor`,{authToken:localStorage.authToken}).then(res => {
             if (res) {
               // console.log(res)
               const that = this
@@ -271,15 +290,16 @@ export default {
                 this.isimgde = false
               }
             this.acquisitionDeviceCode = res.data.dataSource.list[0].acquisitionDeviceCode
-      
+            // this.isimgde = true
           doGet(`http://112.103.160.4:33333/api/getImageFile/getListPage`,{equipment_code:this.acquisitionDeviceCode,page:1,limit:1}).then(res => {
             if (res) {
               if (res.data.images.length ===0) {
-                console.log(res.data.images)
+                // console.log(res.data.images)
                 this.isimgde = true
               } else {
-                this.imgone = 'http://112.103.160.4:33333/'+ res.data.images[0].mask_image_path
                 this.isimgde = false
+                this.imgone = 'http://112.103.160.4:33333/'+ res.data.images[0].mask_image_path
+                // this.isimgde = false
               }
             }
           })
@@ -313,6 +333,7 @@ export default {
                     this.isimgde = false
                   }
                   this.acquisitionDeviceCode = res.data.dataSource.list[0].acquisitionDeviceCode
+                  // this.isimgde = true
                   doGet(`http://112.103.160.4:33333/api/getImageFile/getListPage`,{equipment_code:this.acquisitionDeviceCode,page:1,limit:1}).then(res => {
                     if (res) {
                       if (res.data.images.length ===0) {
@@ -410,17 +431,17 @@ export default {
                     stroke: '#0a9afe'
                 }
               },
-                details: {
-                  show: true,
-                  formatter: '{value}',
-                  style: {
-                    fill: '#0a9afe',
-                    gradient:'#0a9afe',
-                    fontSize: 25
-                  }
+              details: {
+                show: true,
+                formatter: '{value}',
+                style: {
+                  fill: '#0a9afe',
+                  gradient:'#0a9afe',
+                  fontSize: 25
                 }
-              }]
-            }
+              }
+            }]
+          }
           this.optionround3 = {
               series: [
             {
@@ -506,51 +527,52 @@ export default {
             }]
           }
           this.optionround5 = {
-          series: [
-            {
-              type: 'gauge',
-              startAngle: -Math.PI / 2,
-              endAngle: Math.PI * 1.5,
-              arcLineWidth: 14,
-              data: [
-                { name: 'itemA', value: this.roundlist5, gradient: ['#1ed3e5', '#1ed3e5', '#1ed3e5','#1ed3e5'] }
-              ],
-              style: {
-                fill: '#0a9afe'
-              },
-              axisLabel: {
-                show: false
-              },
-              axisTick: {
-                show: false
-              },
-              pointer: {
-                show: false
-              },
-              dataItemStyle: {
-                lineCap: 'round'
-              },
-              backgroundArc:{
-                show: true,
-                style:{
-                  stroke: '#0a9afe'
-                }
-              },
-              details: {
-                show: true,
-                formatter: '{value}%',
+            series: [
+              {
+                type: 'gauge',
+                startAngle: -Math.PI / 2,
+                endAngle: Math.PI * 1.5,
+                arcLineWidth: 14,
+                data: [
+                  { name: 'itemA', value: this.roundlist5, gradient: ['#1ed3e5', '#1ed3e5', '#1ed3e5','#1ed3e5'] }
+                ],
                 style: {
-                  fill: '#0a9afe',
-                  gradient:'#0a9afe',
-                  fontSize: 25
+                  fill: '#0a9afe'
+                },
+                axisLabel: {
+                  show: false
+                },
+                axisTick: {
+                  show: false
+                },
+                pointer: {
+                  show: false
+                },
+                dataItemStyle: {
+                  lineCap: 'round'
+                },
+                backgroundArc:{
+                  show: true,
+                  style:{
+                    stroke: '#0a9afe'
+                  }
+                },
+                details: {
+                  show: true,
+                  formatter: '{value}%',
+                  style: {
+                    fill: '#0a9afe',
+                    gradient:'#0a9afe',
+                    fontSize: 25
+                  }
                 }
               }
-            }
-          ]}
+            ]
+          }
         }
       })
-      }
-    })
+    }
+  })
     doGet(`${API_HOST}/api/system/device/getCFDeviceInfoError`,{authToken:localStorage.authToken,farmId:localStorage.farm_id}).then(res => {
       if (res) {
         // console.log(res.data.dataSource)
@@ -618,50 +640,50 @@ export default {
           }
         }
       },
-    yAxis: {
-      name: 'kg',
-      data: this.datalist,
-      nameTextStyle: {
-        fill: '#8db6d4',
-        fontSize: 10
-      },
-      axisLine:{
-        style: {
-        stroke: '#fff',
-        lineWidth: 1
-      }},
-      axisTick:{
-        style: {
-        stroke: '#fff',
-        lineWidth: 1
-        }
-      },
-      axisLabel:{
-        style: {
-          fill: '#fff',
-          fontSize: 10,
-          rotate: 0
-        }
-      }
-    },
-    series: [
-      {
-        name: '系列A',
+      yAxis: {
+        name: 'kg',
         data: this.datalist,
-        type: 'line',
-        stack: 'a',
-        style: {
-          stroke: '#fff',
-          fontSize: 20
+        nameTextStyle: {
+          fill: '#8db6d4',
+          fontSize: 10
         },
-        fill: {
-          show: true
+        axisLine:{
+          style: {
+          stroke: '#fff',
+          lineWidth: 1
+        }},
+        axisTick:{
+          style: {
+          stroke: '#fff',
+          lineWidth: 1
+          }
+        },
+        axisLabel:{
+          style: {
+            fill: '#fff',
+            fontSize: 10,
+            rotate: 0
+          }
         }
-      }
-    ]
-  }
+      },
+      series: [
+        {
+          name: '系列A',
+          data: this.datalist,
+          type: 'line',
+          stack: 'a',
+          style: {
+            stroke: '#fff',
+            fontSize: 20
+          },
+          fill: {
+            show: true
+          }
+        }
+      ]
+    }
     this.optionround1={
-            series: [
+      series: [
     {
       type: 'gauge',
       startAngle: -Math.PI / 2,
@@ -704,51 +726,48 @@ export default {
   ]
           }
     this.optionround2={
-            series: [
-    {
-      type: 'gauge',
-      startAngle: -Math.PI / 2,
-      endAngle: Math.PI * 1.5,
-      arcLineWidth: 14,
-      data: [
-        { name: 'itemA', value: this.roundlist2, gradient: ['#1ed3e5', '#1ed3e5', '#1ed3e5','#1ed3e5'] }
-      ],
-      style: {
-        fill: '#0a9afe'
-      },
-      axisLabel: {
-        show: false
-      },
-      axisTick: {
-        show: false
-      },
-      pointer: {
-        show: false
-      },
-      dataItemStyle: {
-        lineCap: 'round'
-      },
-      backgroundArc:{
-        show: true,
-        style:{
-          stroke: '#0a9afe'
-        }
-      },
-      details: {
-        show: true,
-        formatter: '{value}',
+      series: [{
+        type: 'gauge',
+        startAngle: -Math.PI / 2,
+        endAngle: Math.PI * 1.5,
+        arcLineWidth: 14,
+        data: [
+          { name: 'itemA', value: this.roundlist2, gradient: ['#1ed3e5', '#1ed3e5', '#1ed3e5','#1ed3e5'] }
+        ],
         style: {
-            fill: '#0a9afe',
-            gradient:'#0a9afe',
-            fontSize: 25
-        }
-      }
-    }
-  ]
+          fill: '#0a9afe'
+        },
+        axisLabel: {
+          show: false
+        },
+        axisTick: {
+          show: false
+        },
+        pointer: {
+          show: false
+        },
+        dataItemStyle: {
+          lineCap: 'round'
+        },
+        backgroundArc:{
+          show: true,
+          style:{
+            stroke: '#0a9afe'
           }
+        },
+        details: {
+          show: true,
+          formatter: '{value}',
+          style: {
+              fill: '#0a9afe',
+              gradient:'#0a9afe',
+              fontSize: 25
+          }
+        }
+      }]
+    }
     this.optionround3={
-      series: [
-      {
+      series: [{
         type: 'gauge',
         startAngle: -Math.PI / 2,
         endAngle: Math.PI * 1.5,
@@ -831,46 +850,45 @@ export default {
       }]
     }
     this.optionround5={
-      series: [
-      {
-      type: 'gauge',
-      startAngle: -Math.PI / 2,
-      endAngle: Math.PI * 1.5,
-      arcLineWidth: 14,
-      data: [
-        { name: 'itemA', value: this.roundlist5, gradient: ['#1ed3e5', '#1ed3e5', '#1ed3e5','#1ed3e5'] }
-      ],
-      style: {
-        fill: '#0a9afe'
-      },
-      axisLabel: {
-        show: false
-      },
-      axisTick: {
-        show: false
-      },
-      pointer: {
-        show: false
-      },
-      dataItemStyle: {
-        lineCap: 'round'
-      },
-      backgroundArc:{
-        show: true,
-        style:{
-          stroke: '#0a9afe'
-        }
-      },
-      details: {
-        show: true,
-        formatter: '{value}',
+      series: [{
+        type: 'gauge',
+        startAngle: -Math.PI / 2,
+        endAngle: Math.PI * 1.5,
+        arcLineWidth: 14,
+        data: [
+          { name: 'itemA', value: this.roundlist5, gradient: ['#1ed3e5', '#1ed3e5', '#1ed3e5','#1ed3e5'] }
+        ],
         style: {
-          fill: '#0a9afe',
-          gradient:'#0a9afe',
-          fontSize: 25
+          fill: '#0a9afe'
+        },
+        axisLabel: {
+          show: false
+        },
+        axisTick: {
+          show: false
+        },
+        pointer: {
+          show: false
+        },
+        dataItemStyle: {
+          lineCap: 'round'
+        },
+        backgroundArc:{
+          show: true,
+          style:{
+            stroke: '#0a9afe'
+          }
+        },
+        details: {
+          show: true,
+          formatter: '{value}',
+          style: {
+            fill: '#0a9afe',
+            gradient:'#0a9afe',
+            fontSize: 25
+          }
         }
-      }
-    }]
+      }]
     }
   },
   methods: {
@@ -934,8 +952,8 @@ export default {
                 { name: 'itemA', value: this.fenshu, gradient: ['#1ed3e5', '#1ed3e5', '#1ed3e5','#1ed3e5'] }
               ],
               style: {
-              fill: '#0a9afe'
-            },
+                fill: '#0a9afe'
+              },
               axisLabel: {
                 show: false
               },
@@ -952,8 +970,8 @@ export default {
                 show: true,
                 style:{
                   stroke: '#0a9afe'
-              }
-            },
+                }
+              },
               details: {
                 show: true,
                 formatter: '{value}',
@@ -965,51 +983,49 @@ export default {
               }
             }]
           }
-          this.optionround2={
-            series: [
-              {
-                type: 'gauge',
-                startAngle: -Math.PI / 2,
-                endAngle: Math.PI * 1.5,
-                arcLineWidth: 14,
-                data: [
-                  { name: 'itemA', value: this.roundlist2, gradient: ['#1ed3e5', '#1ed3e5', '#1ed3e5','#1ed3e5'] }
-                ],
-                style: {
+          this.optionround2 = {
+            series: [{
+              type: 'gauge',
+              startAngle: -Math.PI / 2,
+              endAngle: Math.PI * 1.5,
+              arcLineWidth: 14,
+              data: [
+                { name: 'itemA', value: this.roundlist2, gradient: ['#1ed3e5', '#1ed3e5', '#1ed3e5','#1ed3e5'] }
+              ],
+              style: {
                 fill: '#0a9afe'
               },
-                axisLabel: {
-                  show: false
-                },
-                axisTick: {
-                  show: false
-                },
-                pointer: {
-                  show: false
-                },
-                dataItemStyle: {
-                  lineCap: 'round'
-                },
-                backgroundArc:{
-                  show: true,
-                  style:{
-                    stroke: '#0a9afe'
+              axisLabel: {
+                show: false
+              },
+              axisTick: {
+                show: false
+              },
+              pointer: {
+                show: false
+              },
+              dataItemStyle: {
+                lineCap: 'round'
+              },
+              backgroundArc:{
+                show: true,
+                style:{
+                  stroke: '#0a9afe'
                 }
               },
-                details: {
-                  show: true,
-                  formatter: '{value}',
-                  style: {
-                    fill: '#0a9afe',
-                    gradient:'#0a9afe',
-                    fontSize: 25
-                  }
+              details: {
+                show: true,
+                formatter: '{value}',
+                style: {
+                  fill: '#0a9afe',
+                  gradient:'#0a9afe',
+                  fontSize: 25
                 }
-              }]
-            }
-          this.optionround3={
-              series: [
-            {
+              }
+            }]
+          }
+          this.optionround3 = {
+            series: [{
               type: 'gauge',
               startAngle: -Math.PI / 2,
               endAngle: Math.PI * 1.5,
@@ -1049,9 +1065,8 @@ export default {
               }
             }]
           }
-          this.optionround4={
-          series: [
-            {
+          this.optionround4 = {
+            series: [{
               type: 'gauge',
               startAngle: -Math.PI / 2,
               endAngle: Math.PI * 1.5,
@@ -1091,9 +1106,8 @@ export default {
               }
             }]
           }
-          this.optionround5={
-          series: [
-            {
+          this.optionround5 = {
+            series: [{
               type: 'gauge',
               startAngle: -Math.PI / 2,
               endAngle: Math.PI * 1.5,
@@ -1152,6 +1166,22 @@ export default {
         }
       })
     },
+    toDIS(){
+      this.$router.push({path:'/'})
+    },
+    alertmune(){
+      // this.dialogVisible = true
+      this.ispop = true
+    },
+    tomp4(){
+      this.$router.push({path:'/video'})
+    },
+    toCf(){
+      this.$router.push({path:'/cf'})
+    },
+    closePop(){
+      this.ispop = false
+    },
     currentTime(){
       setInterval(this.getTime,500)
     },
@@ -1166,16 +1196,16 @@ export default {
       _this.gettime = yy+'-'+mm+'-'+dd+' '+hh+':'+mf+':'+ss;
     },
     open() {
-        this.$alert('这是一段内容', '标题名称', {
-          confirmButtonText: '确定',
-          callback: action => {
-            this.$message({
-              type: 'info',
-              message: `action: ${ action }`
-            });
-          }
-        });
-      },
+      this.$alert('这是一段内容', '标题名称', {
+        confirmButtonText: '确定',
+        callback: action => {
+          this.$message({
+            type: 'info',
+            message: `action: ${ action }`
+          });
+        }
+      });
+    },
     mapclick(){
       this.showtable= false
     },
@@ -1283,41 +1313,8 @@ export default {
   width:420px;
   height: 180px;
 } 
-.el-dialog__header {
-    padding: 20px 20px 10px;
-    background: #161273;
-    color: #DCDFE6;
-}
-.el-dialog__title {
-    line-height: 24px;
-    font-size: 18px;
-    color:#DCDFE6;
-    /* opacity:
-     0.5; */
-}
-.el-dialog__title {
-    line-height: 24px;
-    font-size: 18px;
-    color: #DCDFE6;
-}
-.el-dialog__headerbtn .el-dialog__close {
-    color: #fff;
-}
-.el-dialog__body {
-    padding: 30px 20px;
-    color: #606266;
-    font-size: 14px;
-    word-break: break-all;
-    background: #161273;
-}
-.el-dialog__footer {
-    padding: 10px 20px 20px;
-    text-align: right;
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
-    background: #161273;
-}
-.el-button {
+/*  */
+/* .el-button {
     display: inline-block;
     line-height: 1;
     white-space: nowrap;
@@ -1338,7 +1335,7 @@ export default {
     font-size: 14px;
     border-radius: 4px;
 
-}
+} */
 .backimg{
   background-image: url(./background.png);
 }
